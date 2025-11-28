@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<registry>
+  <records interface="plone.base.interfaces.controlpanel.IMailSchema"
+           prefix="plone"
+           purge="false"
+  >
+    <value key="email_from_name">Intranet do TRE-PI</value>
+    <value key="email_from_address">no-reply@tre-pi.jus.br</value>
+    <value key="email_from_name">No Reply</value>
+    <value key="smtp_host">10.1.1.2</value>
+    <value key="smtp_pass" />
+    <value key="smtp_port">25</value>
+    <value key="smtp_userid">user</value>
+  </records>
+</registry>
