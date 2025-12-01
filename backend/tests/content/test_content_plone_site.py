@@ -17,7 +17,7 @@ class TestPloneSite:
             ["Access contents information", False],
             ["Modify portal content", False],
             ["View", False],
-        ]
+        ],
     )
     def test_anonymous_permissions(self, portal, permission: str, expected: str):
         with api.env.adopt_user(user=nobody):
