@@ -22,7 +22,6 @@ class TestPloneSite:
     def test_anonymous_permissions(self, portal, permission: str, expected: str):
         with api.env.adopt_user(user=nobody):
             user = api.user.get_current()
-            print("USUARIO >>> ", user)
             has_permission = api.user.has_permission(permission, user=user, obj=portal)
             assert has_permission is expected, (
                 f"Error: Permission {permission} to anounymous user: {has_permission}"
