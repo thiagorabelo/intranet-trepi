@@ -2,8 +2,7 @@ import React from 'react';
 import { getBaseUrl } from '@plone/volto/helpers/Url/Url';
 import { Container } from '@plone/components';
 import RenderBlocks from '@plone/volto/components/theme/View/RenderBlocks';
-import ContactInfo from 'volto-trepi-intranet/components/ContactInfo/ContactInfo';
-import type { Area } from 'volto-trepi-intranet/types/content';
+import type { Area } from '../../types/content';
 
 interface AreaViewProps {
   content: Area;
@@ -15,12 +14,20 @@ interface AreaViewProps {
 
 const AreaView: React.FC<AreaViewProps> = (props) => {
   const { content, location } = props;
+  const { telefone, email } = content;
   const path = getBaseUrl(location?.pathname || '');
 
   return (
     <Container id="page-document" className="view-wrapper area-view">
       <RenderBlocks {...props} path={path} />
-      <ContactInfo content={content} />
+      <Container narrow className="contato">
+        <Container className="telefone">
+          <span>Telefone</span>: <span>{telefone}</span>
+        </Container>
+        <Container className="email">
+          <span>E-mail</span>: <a href={`mailto:${email}`}>{email}</a>
+        </Container>
+      </Container>
     </Container>
   );
 };

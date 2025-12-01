@@ -1,6 +1,6 @@
 import type { ConfigType } from '@plone/registry';
 import installSettings from './config/settings';
-import installViews from './config/settings';
+import installViews from './config/views';
 
 function applyConfig(config: ConfigType) {
   installSettings(config);
