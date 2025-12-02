@@ -1,40 +1,38 @@
 import React from 'react';
-import { Container } from "@plone/components";
-import type { Area } from "volto-trepi-intranet/types/content";
-
+import { Container } from '@plone/components';
+import type { Area } from 'volto-trepi-intranet/types/content';
 
 interface EnderecoInfoProps {
-    content: Area;
+  content: Area;
 }
 
-
-const EnderecoInfo: React.FC<EnderecoInfoProps> = ({content}) => {
-    const { endereco, complemento, cidade, estado, cep } = content;
-    return (
+const EnderecoInfo: React.FC<EnderecoInfoProps> = ({ content }) => {
+  const { endereco, complemento, cidade, estado, cep } = content;
+  return (
+    <Container>
+      {endereco && (
         <Container>
-            {endereco && (
-                <Container>
-                    <span className="endereco">{endereco}</span>
-                </Container>
-            )}
-            {complemento && (
-                <Container>
-                    <span className="complemento">{complemento}</span>
-                </Container>
-            )}
-            {cidade && estado && (
-                <Container>
-                    <span className="cidade">{cidade}</span>
-                    <span className="estado">{estado}</span>
-                </Container>
-            )}
-            {cep && (
-                <Container>
-                    <span className="cep">{cep}</span>
-                </Container>
-            )}
+          <span className="endereco">{endereco}</span>
         </Container>
-    );
+      )}
+      {complemento && (
+        <Container>
+          <span className="complemento">{complemento}</span>
+        </Container>
+      )}
+      {cidade && estado && (
+        <Container>
+          <span className="cidade">{cidade}</span>
+          <span className="estado">{estado}</span>
+        </Container>
+      )}
+      {cep && (
+        <Container>
+          <span className="cep">{cep}</span>
+        </Container>
+      )}
+    </Container>
+  );
 };
 
 export default EnderecoInfo;
