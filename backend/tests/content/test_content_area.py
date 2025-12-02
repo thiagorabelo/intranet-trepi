@@ -74,3 +74,21 @@ class TestArea:
             else:
                 with pytest.raises(Unauthorized):
                     content = api.content.create(container=self.portal, **area_payload)
+
+    @pytest.mark.parametrize(
+        "behavior",
+        [
+            "plone.basic",
+            "plone.namefromtitle",
+            "plone.shortname",
+            "plone.excludefromnavigation",
+            "plone.versioning",
+            "trepi.intranet.behavior.contato",
+            "trepi.intranet.behavior.endereco",
+            "volto.blocks",
+            "plone.constraintypes",
+            "volto.preview_image",
+        ],
+    )
+    def test_has_behavior(self, get_behaviors, behavior):
+        assert behavior in get_behaviors(CONTENT_TYPE)
