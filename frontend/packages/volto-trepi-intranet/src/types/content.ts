@@ -29,3 +29,8 @@ export interface Pessoa extends Content {
   };
   cep?: string;
 }
+
+export interface Area extends Content {
+  title: string;
+  description: string;
+}

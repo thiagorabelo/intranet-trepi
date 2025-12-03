@@ -3,7 +3,9 @@ import Image from '@plone/volto/components/theme/Image/Image';
 import { Container } from '@plone/components';
 import ContactInfo from 'volto-trepi-intranet/components/ContactInfo/ContactInfo';
 import EnderecoInfo from 'volto-trepi-intranet/components/EnderecoInfo/EnderecoInfo';
+import AreaInfo from 'volto-trepi-intranet/components/AreaInfo/AreaInfo';
 import type { Pessoa } from 'volto-trepi-intranet/types/content';
+import UniversalLink from '@plone/volto/components/manage/UniversalLink/UniversalLink';
 
 interface PessoaViewProps {
   content: Pessoa;
@@ -38,6 +40,11 @@ const PessoaView: React.FC<PessoaViewProps> = (props) => {
       )}
       <ContactInfo content={content} />
       <EnderecoInfo content={content} />
+      {content.area && (
+        <UniversalLink className={'area'} item={content.area}>
+          <AreaInfo content={content.area} icon={true} />
+        </UniversalLink>
+      )}
     </Container>
   );
 };
