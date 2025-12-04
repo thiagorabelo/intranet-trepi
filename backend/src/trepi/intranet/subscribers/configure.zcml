@@ -1,7 +1,14 @@
 <configure xmlns="http://namespaces.zope.org/zope">
-    <subscriber
-        for="trepi.intranet.content.area.IArea
-             zope.lifecycleevent.IObjectAddedEvent"
-        handler=".area.added"
-        />
+
+  <subscriber
+      for="trepi.intranet.content.area.IArea
+           zope.lifecycleevent.IObjectAddedEvent"
+      handler=".area.added"
+      />
+
+  <subscriber
+      for="trepi.intranet.content.area.IArea
+           zope.lifecycleevent.IObjectModifiedEvent"
+      handler=".area.modified"
+      />
 </configure>

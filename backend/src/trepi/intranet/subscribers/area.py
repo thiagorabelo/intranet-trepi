@@ -3,9 +3,10 @@ from Products.PlonePAS.tools.groupdata import GroupData
 from trepi.intranet import logger
 from trepi.intranet.content.area import Area
 from zope.lifecycleevent import ObjectAddedEvent
+from zope.lifecycleevent import ObjectModifiedEvent
 
 
-def _cria_grupo_usuarios(obj:Area) -> None:
+def _cria_grupo_usuarios(obj: Area) -> None:
     """Cria grupo de usuários para a nova área"""
     uid = api.content.get_uuid(obj)
     g_id = f"{uid}-editores"
@@ -21,14 +22,18 @@ def _cria_grupo_usuarios(obj:Area) -> None:
     logger.info("Grupo %s recebeu papel de editor em %s", titulo, obj.absolute_url())
 
 
-def _update_excluded_from_nav(obj: Area):
+def _update_excluded_from_nav(obj: Area) -> None:
     """Update excluded_from_nav in the Area object."""
     description = obj.description
     obj.exclude_from_nav = not bool(description)
     logger.info(f"Atualizado o campo excluded_from_nav para {obj.title}")
 
 
-def added(obj: Area, event: ObjectAddedEvent):
+def added(obj: Area, event: ObjectAddedEvent) -> None:
     """Post creation handler for Area."""
     _update_excluded_from_nav(obj)
     _cria_grupo_usuarios(obj)
+
+
+def modified(obj: Area, event: ObjectModifiedEvent) -> None:
+    _update_excluded_from_nav(obj)
