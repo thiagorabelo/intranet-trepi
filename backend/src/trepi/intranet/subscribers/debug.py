@@ -1,4 +1,3 @@
-
 from trepi.intranet import logger
 
 import os
