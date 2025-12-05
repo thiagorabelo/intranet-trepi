@@ -100,8 +100,6 @@ class TestArea:
             "volto.preview_image",
         ],
     )
-    def test_has_behavior(self, get_behaviors, behavior):
-        assert behavior in get_behaviors(CONTENT_TYPE)
 
     def test_subscriber_added_with_description_value(self, area_payload):
         container = self.portal

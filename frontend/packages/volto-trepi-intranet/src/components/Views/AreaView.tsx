@@ -16,7 +16,6 @@ interface AreaViewProps {
 
 const AreaView: React.FC<AreaViewProps> = (props) => {
   const { content, location } = props;
-  const { telefone, email } = content;
   const path = getBaseUrl(location?.pathname || '');
 
   return (
