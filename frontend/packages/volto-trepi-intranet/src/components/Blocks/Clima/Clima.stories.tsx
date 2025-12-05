@@ -17,7 +17,7 @@ const meta = {
       description: 'Localização',
     },
     weather: {
-      description: 'Clima atual (ex: sun, rain, cloud)',
+      description: 'Clima atual (ex: sun, rain, cloud, thunderstorm)',
     },
     temperature: {
       control: 'text',

@@ -2,7 +2,8 @@ $color1: #c8dae6;
 $color2: white;
 $color3: #323232;
 $color4: #ffcd41;
-$color5: #2092a9;
+$color5: #2092a9; // Cor para a chuva (azul mais escuro)
+$color6: #e6e65c; // Cor para o relâmpago (amarelo claro)
 
 @keyframes rain {
   from {
@@ -17,6 +18,28 @@ $color5: #2092a9;
       $color5 8px 6px,
       $color5 32px 0px,
       $color5 20px 6px;
+  }
+}
+
+// ANIMAÇÃO DO RELÂMPAGO
+@keyframes lightning {
+  0% {
+    transform: translate(0, 0) scaleY(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    transform: translate(0, 0) scaleY(1);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(2px, 2px) scaleY(0.5);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -147,6 +170,7 @@ $color5: #2092a9;
     box-shadow: rgba(255, 255, 0, 0.1) 0 0 0 4px;
   }
 
+  // CLIMA NUBALDO (CLOUD)
   .cloud {
     width: 25px;
     height: 25px;
@@ -159,7 +183,24 @@ $color5: #2092a9;
       darken($color1, 5%) 30px 5px 0 2px,
       darken($color1, 5%) 11px -8px 0 -3px,
       darken($color1, 5%) 25px 11px 0 -1px;
+  }
 
+  // CLIMA CHUVOSO (RAIN)
+  .rain {
+    // A nuvem do clima chuvoso
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    margin-right: 60px;
+    background: darken($color1, 15%);
+    box-shadow:
+      darken($color1, 15%) 24px -6px 0 2px,
+      darken($color1, 15%) 10px 5px 0 5px,
+      darken($color1, 15%) 30px 5px 0 2px,
+      darken($color1, 15%) 11px -8px 0 -3px,
+      darken($color1, 15%) 25px 11px 0 -1px;
+
+    // A chuva adicionada através do pseudo-elemento
     &:after {
       position: absolute;
       top: 31px;
@@ -172,6 +213,37 @@ $color5: #2092a9;
       background-color: transparent;
       content: '';
       transform: rotate(30deg);
+    }
+  }
+
+  // CLIMA TEMPESTADE (THUNDERSTORM)
+  .thunderstorm {
+    // A nuvem do clima de tempestade (ainda mais escura)
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    margin-right: 60px;
+    background: darken($color1, 25%);
+    box-shadow:
+      darken($color1, 25%) 24px -6px 0 2px,
+      darken($color1, 25%) 10px 5px 0 5px,
+      darken($color1, 25%) 30px 5px 0 2px,
+      darken($color1, 25%) 11px -8px 0 -3px,
+      darken($color1, 25%) 25px 11px 0 -1px;
+
+    // O relâmpago (usando o pseudo-elemento `&:after`)
+    &:after {
+      position: absolute;
+      top: 35px;
+      left: 10px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 12px solid $color6; // Parte amarela do relâmpago
+      content: '';
+      transform-origin: top;
+      animation: lightning 3s ease-in-out infinite alternate;
     }
   }
 }
