@@ -1,4 +1,4 @@
-from AccessControl.unauthorized import Unauthorized
+from AccessControl import Unauthorized
 from plone import api
 from plone.dexterity.fti import DexterityFTI
 from trepi.intranet.content.area import Area
@@ -24,13 +24,14 @@ def area_payload() -> dict:
 
 
 @pytest.fixture
-def area(portal, area_payload):
+def area(portal, area_payload) -> Area:
     """Cria um objeto to tipo Area na raiz do Portal."""
     with api.env.adopt_roles(["Manager"]):
-        return api.content.create(
+        area = api.content.create(
             container=portal,
             **area_payload,
         )
+    return area
 
 
 class TestArea:
@@ -55,6 +56,8 @@ class TestArea:
             "plone.namefromtitle",
             "plone.shortname",
             "plone.excludefromnavigation",
+            "trepi.intranet.behavior.contato",
+            "trepi.intranet.behavior.endereco",
             "plone.versioning",
             "volto.blocks",
             "plone.constraintypes",
@@ -83,23 +86,7 @@ class TestArea:
                 assert isinstance(content, Area)
             else:
                 with pytest.raises(Unauthorized):
-                    content = api.content.create(container=self.portal, **area_payload)
-
-    @pytest.mark.parametrize(
-        "behavior",
-        [
-            "plone.basic",
-            "plone.namefromtitle",
-            "plone.shortname",
-            "plone.excludefromnavigation",
-            "plone.versioning",
-            "trepi.intranet.behavior.contato",
-            "trepi.intranet.behavior.endereco",
-            "volto.blocks",
-            "plone.constraintypes",
-            "volto.preview_image",
-        ],
-    )
+                    api.content.create(container=self.portal, **area_payload)
 
     def test_subscriber_added_with_description_value(self, area_payload):
         container = self.portal
@@ -137,6 +124,7 @@ class TestArea:
         # Agora vamos alterar a descrição para uma string vazia
         area.description = ""
 
+        # Disparamos o evento de modificação
         notify(ObjectModifiedEvent(area))
 
         # Após a modificação, o campo exclude_from_nav deve ser atualizado para True
