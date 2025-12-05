@@ -24,19 +24,19 @@ $color6: #e6e65c; // Cor para o relâmpago (amarelo claro)
 // ANIMAÇÃO DO RELÂMPAGO
 @keyframes lightning {
   0% {
-    transform: translate(0, 0) scaleY(0);
     opacity: 0;
+    transform: translate(0, 0) scaleY(0);
   }
   20% {
     opacity: 1;
   }
   40% {
-    transform: translate(0, 0) scaleY(1);
     opacity: 1;
+    transform: translate(0, 0) scaleY(1);
   }
   60% {
-    transform: translate(2px, 2px) scaleY(0.5);
     opacity: 0;
+    transform: translate(2px, 2px) scaleY(0.5);
   }
   100% {
     opacity: 0;
@@ -238,12 +238,12 @@ $color6: #e6e65c; // Cor para o relâmpago (amarelo claro)
       left: 10px;
       width: 0;
       height: 0;
-      border-left: 5px solid transparent;
       border-right: 5px solid transparent;
       border-bottom: 12px solid $color6; // Parte amarela do relâmpago
+      border-left: 5px solid transparent;
+      animation: lightning 3s ease-in-out infinite alternate;
       content: '';
       transform-origin: top;
-      animation: lightning 3s ease-in-out infinite alternate;
     }
   }
 }

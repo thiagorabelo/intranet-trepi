@@ -46,17 +46,17 @@ const ClimaBlockView: React.FC<ClimaBlockViewProps> = ({
       )}
       style={style}
     >
-        {loaded ? (
-          <ClimaView
-              weather={weather}
-              temperature={temperature}
-              location={location}
-              measure={measure}
-              measureValue={measure === 'sunrise' ? sunrise : sunset}
-          />
-        ) : (
-          <div className={'loading'}>{'Please wait'}</div>
-        )}
+      {loaded ? (
+        <ClimaView
+          weather={weather}
+          temperature={temperature}
+          location={location}
+          measure={measure}
+          measureValue={measure === 'sunrise' ? sunrise : sunset}
+        />
+      ) : (
+        <div className={'loading'}>{'Please wait'}</div>
+      )}
     </div>
   );
 };
