@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import withBlockExtensions from '@plone/volto/helpers/Extensions/withBlockExtensions';
-import ClimaView from 'volto-trepi-intranet/components/Blocks/Clima/DefaultView';
+import { getClimaData } from 'volto-trepi-intranet/actions/Clima/Clima';
 import type { ClimaBlockData } from 'volto-trepi-intranet/components/Blocks/Clima/Data';
+import ClimaView from 'volto-trepi-intranet/components/Blocks/Clima/DefaultView';
 import cx from 'classnames';
 
 interface ClimaBlockViewProps {
@@ -18,17 +20,9 @@ const ClimaBlockView: React.FC<ClimaBlockViewProps> = ({
   isEditMode,
 }) => {
   // Pointer para o local com os dados
-  const previsao = {
-    events: {
-      sunrise: '08:00',
-      sunset: '18:00',
-    },
-    temperature: {
-      hourly: [],
-      now: 29.1,
-    },
-    weather: 'sun',
-  };
+  const dispatch = useDispatch();
+  const loaded = useSelector((state) => state.climaData?.loaded || false);
+  const previsao = useSelector((state) => state.climaData?.data || {});
   const events = previsao?.events;
   const sunrise = events?.sunrise ? events.sunrise : '';
   const sunset = events?.sunset ? events.sunset : '';
@@ -36,6 +30,12 @@ const ClimaBlockView: React.FC<ClimaBlockViewProps> = ({
   const weather = previsao?.weather ? previsao.weather : 'cloud';
   const measure = data?.measure ? data.measure : '';
   const location = data?.location ? data.location : 'Terra';
+
+  //Busca os dados quando o bloco é rederizado
+  // ou quando a localização é alterada
+  useEffect(() => {
+    dispatch(getClimaData(location));
+  }, [dispatch, location]);
 
   return (
     <div
@@ -46,13 +46,17 @@ const ClimaBlockView: React.FC<ClimaBlockViewProps> = ({
       )}
       style={style}
     >
-      <ClimaView
-        weather={weather}
-        temperature={temperature}
-        location={location}
-        measure={measure}
-        measureValue={measure === 'sunrise' ? sunrise : sunset}
-      />
+        {loaded ? (
+          <ClimaView
+              weather={weather}
+              temperature={temperature}
+              location={location}
+              measure={measure}
+              measureValue={measure === 'sunrise' ? sunrise : sunset}
+          />
+        ) : (
+          <div className={'loading'}>{'Please wait'}</div>
+        )}
     </div>
   );
 };
