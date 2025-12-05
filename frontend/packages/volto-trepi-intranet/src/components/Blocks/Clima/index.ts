@@ -1,30 +1,25 @@
-import type { ConfigType } from '@plone/registry';
+import ClimaBlockView from 'volto-trepi-intranet/components/Blocks/Clima/View';
+import ClimaBlockEdit from 'volto-trepi-intranet/components/Blocks/Clima/Edit';
+import { ClimaSchema } from 'volto-trepi-intranet/components/Blocks/Clima/schema';
+import ClimaSVG from '@plone/volto/icons/cloud.svg';
 import type { BlockConfigBase } from '@plone/types';
-import AreaGridItem from 'volto-trepi-intranet/components/Blocks/Grid/AreaGridItem';
-import ClimaBlockInfo from 'volto-trepi-intranet/components/Blocks/Clima';
 
-declare module '@plone/types' {
-  // Altera a interface BlocksConfigData para incluir o bloco de Clima
-  export interface BlocksConfigData {
-    climaBlock: BlockConfigBase;
-  }
+export interface ClimaBlockData {
+  location?: string;
+  measure?: string;
 }
+const ClimaBlockInfo: BlockConfigBase = {
+  id: 'climaBlock',
+  title: 'Previsão do tempo',
+  icon: ClimaSVG,
+  group: 'common',
+  view: ClimaBlockView,
+  edit: ClimaBlockEdit,
+  blockSchema: ClimaSchema,
+  restricted: false,
+  mostUsed: true,
+  sidebarTab: 1,
+  blockHasOwnFocusManagement: false,
+};
 
-function installLocalBlocks(config: ConfigType) {
-  // Instala o bloco de Clima
-  config.blocks.blocksConfig.climaBlock = ClimaBlockInfo;
-  return config;
-}
-
-export default function install(config: ConfigType) {
-  // Registra todos os blocos criados nesse pacote
-  installLocalBlocks(config);
-
-  // Registra Componente para exibir uma Área quando a listagem for de Grade
-  config.registerComponent({
-    name: 'GridListingItemTemplate',
-    component: AreaGridItem,
-    dependencies: 'Area',
-  });
-  return config;
-}
+export default ClimaBlockInfo;
